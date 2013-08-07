@@ -4,4 +4,5 @@
   = f.label :complete, task.name
   = link_to "(remove) |", task, method: :delete, data: {confirm: "Are you sure?"}
   %span.assign_task assign to
-  = select 'task', 'assignee_id', User.all.map { |user| [user.email, user.id] }
+  - unless task.complete?
+    = select 'task', 'assignee_id', User.all.map { |user| [user.email, user.id] }
