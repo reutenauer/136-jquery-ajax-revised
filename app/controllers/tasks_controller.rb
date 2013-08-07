@@ -26,4 +26,10 @@ class TasksController < ApplicationController
     @task = Task.destroy(params[:id])
     redirect_to tasks_url
   end
+
+  def assign
+    @task = Task.find(params[:id])
+    @assignee = User.find(params[:assignee_id])
+    @task.assign(@assignee)
+  end
 end

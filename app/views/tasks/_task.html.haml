@@ -2,4 +2,8 @@
   = f.check_box :complete
   = f.submit "Update"
   = f.label :complete, task.name
-  = link_to "(remove)", task, method: :delete, data: {confirm: "Are you sure?"}
+  = link_to "(remove) |", task, method: :delete, data: {confirm: "Are you sure?"}
+  %span.assign_task assign to
+  %select
+    - User.all.each do |user|
+      %option{:value => user.id} #{link_to user.email, { controller: 'tasks', action: :assign, id: task.id, assignee_id: user.id }, method: :post, user_id: user.id}
