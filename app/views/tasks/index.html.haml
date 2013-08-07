@@ -1,8 +1,12 @@
-%h1 Check List
-= link_to "New Task", new_task_path, id: "new_link"
-%h2 Incomplete Tasks
-#incomplete_tasks.tasks
-  = render @incomplete_tasks
-%h2 Complete Tasks
-#complete_tasks.tasks
-  = render @complete_tasks
+- if user_signed_in?
+  %h1 Check List
+  = link_to "New Task", new_task_path, id: "new_link"
+  %h2 Incomplete Tasks
+  #incomplete_tasks.tasks
+    = render @incomplete_tasks
+  %h2 Complete Tasks
+  #complete_tasks.tasks
+    = render @complete_tasks
+- else
+  %h1 Please log in
+  %p You are not signed in.  Please log in or sign up using one of the links below, and get to work!

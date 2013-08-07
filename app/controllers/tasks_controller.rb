@@ -1,8 +1,10 @@
 class TasksController < ApplicationController
   def index
     sleep 1
-    @incomplete_tasks = Task.where(complete: false)
-    @complete_tasks = Task.where(complete: true)
+    if user_signed_in?
+      @incomplete_tasks = Task.where(complete: false, user_id: current_user.id)
+      @complete_tasks = Task.where(complete: true, user_id: current_user.id)
+    end
   end
 
   def new
@@ -10,7 +12,7 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.create!(params[:task])
+    @task = Task.create!(params[:task].merge(user_id: current_user.id))
     redirect_to tasks_url
   end
 
