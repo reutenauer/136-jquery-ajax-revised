@@ -7,6 +7,22 @@
   %h2 Complete Tasks
   #complete_tasks.tasks
     = render @complete_tasks
+  %h1 Social network of tasks
+  %h2 Tasks I’m following
+  - @tasks_being_followed.each do |task|
+    = task.name
+    (#{task.user.email})
+  %h2 Show my tasks to others
+  = form_for 'task_user' do |f|
+    Show
+    = select 'task_user', 'user_id', @all_my_tasks.map { |task| [task.name, task.id] }
+    to
+    - User.all.each do |user|
+      - next if user == current_user
+      = f.check_box user.id
+      = user.email
+      &nbsp;&nbsp;
+    = f.submit('Show task')
 - else
   %h1 Please log in
   %p You are not signed in.  Please log in or sign up using one of the links below, and get to work!

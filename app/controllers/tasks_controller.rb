@@ -4,6 +4,8 @@ class TasksController < ApplicationController
     if user_signed_in?
       @incomplete_tasks = Task.where(complete: false, user_id: current_user.id)
       @complete_tasks = Task.where(complete: true, user_id: current_user.id)
+      @tasks_being_followed = current_user.tasks
+      @all_my_tasks = @incomplete_tasks + @complete_tasks
     end
   end
 
