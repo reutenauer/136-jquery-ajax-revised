@@ -10,4 +10,5 @@ class User < ActiveRecord::Base
   # attr_accessible :title, :body
 
   has_many :tasks
+  has_and_belongs_to_many :tasks # Tasks this user is following
 end
